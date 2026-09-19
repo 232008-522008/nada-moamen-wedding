@@ -608,3 +608,50 @@ body { font-family:'Noto Naskh Arabic', serif; }
 .details.section-shell { padding-top: 71px !important; padding-bottom: 71px !important; }
 .scroll-cue { bottom: 4% !important; }
 .verse-after-drive { position: relative !important; top: -8px !important; }
+
+/* Private guest book */
+.guest-book { background: #fbf3e5; }
+.guest-book-inner { width: min(100%, 720px); margin: 0 auto; }
+.guest-book-intro { max-width: 560px; margin: 30px auto 0; color: var(--muted); direction: rtl; text-align: center; font: 400 1.2rem/2 'Aref Ruqaa Ink', serif; }
+.guest-book-form { position: relative; display: grid; gap: 22px; max-width: 560px; margin: 34px auto 0; padding: 34px 28px 28px; background: linear-gradient(145deg, rgba(255,255,255,.54), rgba(255,255,255,.18)); border: 1px solid rgba(216,180,118,.68); border-radius: 24px 8px 24px 8px; box-shadow: 0 18px 45px rgba(60,12,24,.08), inset 0 0 0 6px rgba(255,255,255,.12); }
+.guest-book-form::before, .guest-book-form::after { position: absolute; color: var(--champagne); font: 1.15rem 'Cormorant Garamond', serif; }
+.guest-book-form::before { content: '✦'; top: 13px; left: 20px; }
+.guest-book-form::after { content: '✦'; right: 20px; bottom: 13px; }
+.guest-book-form label { position: relative; display: block; direction: rtl; text-align: right; }
+.guest-book-form label span { position: absolute; top: 8px; left: 16px; right: 16px; z-index: 1; display: flex; align-items: baseline; justify-content: space-between; direction: ltr; color: var(--velvet-deep); pointer-events: none; opacity: 1; transition: opacity .2s ease, transform .2s ease; }
+.guest-book-form label span b { color: var(--muted); font: 500 .82rem 'Cormorant Garamond', serif; letter-spacing: .04em; }
+.guest-book-form label span i { color: var(--velvet-deep); font: 700 .92rem 'Aref Ruqaa Ink', serif; font-style: normal; }
+.guest-book-form input, .guest-book-form textarea { width: 100%; border: 1px solid rgba(145,91,57,.3); border-radius: 14px; padding: 13px 16px; color: var(--ink); background: rgba(255,255,255,.58); direction: rtl; text-align: right; font: 1.05rem/1.7 'Aref Ruqaa Ink', serif; outline: none; transition: border-color .2s ease, box-shadow .2s ease, background .2s ease; }
+.guest-book-form textarea { resize: none; min-height: 68px; height: 68px; overflow: hidden; border-radius: 14px; transition: height .28s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease; }
+.guest-book-form .guest-field--message span { top: 11px; }
+.guest-book-form input::placeholder, .guest-book-form textarea::placeholder { direction: rtl; text-align: center; color: rgba(128,104,106,.7); font: 400 1rem/1.7 'Aref Ruqaa Ink', serif; }
+.guest-book-form input::placeholder, .guest-book-form textarea::placeholder { color: rgba(128,104,106,.62); font: 400 .94rem/1.7 'Aref Ruqaa Ink', serif; }
+.guest-book-form input:focus, .guest-book-form textarea:focus { border-color: var(--champagne); background: rgba(255,255,255,.82); box-shadow: 0 0 0 4px rgba(216,180,118,.14); }
+.guest-book-submit { justify-self: center; min-width: 210px; padding: 13px 28px; color: var(--ivory); background: linear-gradient(135deg, var(--velvet), var(--velvet-deep)); border: 1px solid var(--champagne); border-radius: 999px; box-shadow: 0 8px 18px rgba(60,12,24,.15); cursor: pointer; font: 700 1rem 'Aref Ruqaa Ink', serif; transition: transform .2s ease, background .2s ease, box-shadow .2s ease; }
+.guest-book-submit:hover:not(:disabled) { background: linear-gradient(135deg, var(--velvet-deep), var(--velvet)); transform: translateY(-2px); box-shadow: 0 11px 23px rgba(60,12,24,.22); }
+.guest-book-submit:disabled { cursor: wait; opacity: .7; }
+.guest-book-status { margin: 0; color: var(--velvet); direction: rtl; text-align: center; font: 700 1rem 'Aref Ruqaa Ink', serif; }
+@media (max-width: 520px) { .guest-book-form { padding: 34px 17px 27px; border-radius: 20px 6px 20px 6px; } .guest-book-intro { font-size: 1.08rem; } }
+
+/* Guest book status popup */
+.guest-book-popup { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 22px; background: rgba(37,7,17,.52); backdrop-filter: blur(7px); animation: guestPopupFade .25s ease both; }
+.guest-book-popup-card { position: relative; width: min(100%, 430px); padding: 38px 28px 28px; overflow: hidden; text-align: center; background: linear-gradient(145deg, #fffaf0, #f5e7d0); border: 1px solid var(--champagne); border-radius: 28px 8px 28px 8px; box-shadow: 0 24px 70px rgba(28,3,10,.3), inset 0 0 0 7px rgba(255,255,255,.28); animation: guestPopupIn .35s var(--ease-out) both; }
+.guest-book-popup-card::before, .guest-book-popup-card::after { position: absolute; color: var(--champagne); font-size: 1.1rem; }
+.guest-book-popup-card::before { content: '❦'; top: 13px; left: 18px; }
+.guest-book-popup-card::after { content: '❦'; right: 18px; bottom: 13px; transform: rotate(180deg); }
+.guest-book-popup-mark { display: grid; place-items: center; width: 43px; height: 43px; margin: 0 auto 16px; color: var(--champagne); border: 1px solid var(--champagne); border-radius: 50%; font-size: 1.2rem; }
+.guest-book-popup-message { margin: 0 auto 23px; color: var(--velvet-deep); direction: rtl; text-align: center; font: 700 clamp(1.15rem, 4vw, 1.42rem)/1.8 'Aref Ruqaa Ink', serif; }
+.guest-book-popup-close { min-width: 145px; padding: 10px 22px; color: var(--ivory); background: var(--velvet); border: 1px solid var(--champagne); border-radius: 999px; cursor: pointer; font: 700 1rem 'Aref Ruqaa Ink', serif; transition: transform .2s ease, background .2s ease; }
+.guest-book-popup-close:hover { background: var(--velvet-deep); transform: translateY(-2px); }
+@keyframes guestPopupFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes guestPopupIn { from { opacity: 0; transform: translateY(15px) scale(.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+/* Final bilingual typography balance */
+.hero-topline { font-size: clamp(.72rem, 1.8vw, .94rem); letter-spacing: .1em; }
+.hero-topline span:last-child { font-size: clamp(.68rem, 1.65vw, .86rem); letter-spacing: .08em; }
+.hero-content > .eyebrow { font-size: clamp(.78rem, 2vw, 1rem); letter-spacing: .12em; }
+.verse .section-heading .eyebrow, .welcome .section-heading .eyebrow, .details .section-heading .eyebrow, .guest-book .section-heading .eyebrow, .countdown-header .eyebrow { font-size: clamp(.78rem, 2.1vw, .98rem); letter-spacing: .1em; line-height: 1.5; }
+.countdown-header > p:last-child { font-size: clamp(1.45rem, 5vw, 1.8rem); line-height: 1.2; }
+.detail-label { font-size: 1.08rem; line-height: 1.5; }
+.detail-label small { font-size: .88rem; line-height: 1; }
+.guest-book .heading-en { font-size: clamp(1.4rem, 5vw, 2rem); line-height: 1.2; }

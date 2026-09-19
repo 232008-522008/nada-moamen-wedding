@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { ArrowDown, CalendarDays, CalendarPlus, ChevronDown, Clock3, Flower2, Heart, MapPin, Music2, Pause, Sparkles } from "lucide-react";
 
 const SITE_CONFIG = {
@@ -55,8 +55,78 @@ function Countdown() {
   return <div className="countdown-grid reveal">{units.map((unit) => <div className="countdown-item" key={unit.en}><span className="countdown-number">{unit.en === "Days" ? unit.value : pad(unit.value)}</span><span className="countdown-label"><b>{unit.ar}</b><small>{unit.en}</small></span></div>)}</div>;
 }
 
+// ضع هنا رابط Web App المنشور من Google Apps Script بعد إنشائه.
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwUDuUBijywtIm1wMYNhPfK_6LoA2P5m4HWCvmgTRFVhj-Mt8_fTfAzctyuWNTWEaZL/exec";
+
+function GuestBook() {
+  const [guestName, setGuestName] = useState("");
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState("");
+  const [isSending, setIsSending] = useState(false);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const name = guestName.trim();
+    const text = message.trim();
+
+    if (!name || !text) {
+      setStatus("من فضلك اكتب الاسم والرسالة · Please fill in both fields");
+      return;
+    }
+    if (GOOGLE_SCRIPT_URL.includes("PASTE_")) {
+      setStatus("سيتم تفعيل استقبال الرسائل بعد ربط Google Sheets · Connect Google Sheets to enable submissions");
+      return;
+    }
+
+    setIsSending(true);
+    setStatus("");
+    try {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ guest_name: name, message: text }),
+      });
+      setGuestName("");
+      setMessage("");
+      const textarea = form.querySelector("textarea");
+      if (textarea) textarea.style.height = "68px";
+      setStatus("شكرًا لمشاركتكم فرحتنا · Thank you for sharing our joy");
+    } catch {
+      setStatus("حدث خطأ، حاول مرة أخرى · Something went wrong, please try again");
+    } finally {
+      setIsSending(false);
+    }
+  };
+
+  return <section className="guest-book section-shell" id="guest-book">
+    <div className="guest-book-inner">
+      <Heading eyebrow="دفتر التهاني · Guest Book" title="اتركوا لنا كلمة جميلة" english="Share your wishes with us" />
+      <p className="guest-book-intro reveal">وجودكم معنا هو أجمل هدية · Your presence is the greatest gift</p>
+      <form className="guest-book-form reveal" onSubmit={handleSubmit}>
+        <label className="guest-field">
+          <input value={guestName} onChange={(event) => setGuestName(event.target.value)} maxLength={80} placeholder="Name  |  الاسم" autoComplete="name" />
+        </label>
+        <label className="guest-field guest-field--message">
+          <textarea value={message} onChange={(event) => setMessage(event.target.value)} onInput={(event) => { const target = event.currentTarget; const startHeight = target.offsetHeight; target.style.height = "auto"; const nextHeight = Math.max(target.scrollHeight, 68); target.style.height = `${startHeight}px`; void target.offsetHeight; window.requestAnimationFrame(() => { target.style.height = `${nextHeight}px`; }); }} maxLength={500} placeholder="Your wishes  |  رسالة التهنئة" rows={1} />
+        </label>
+        <button className="guest-book-submit" type="submit" disabled={isSending}>{isSending ? "جاري الإرسال · Sending..." : "إرسال التهنئة · Send wishes"}</button>
+      </form>
+      {status && <div className="guest-book-popup" role="status" aria-live="polite" onClick={() => setStatus("")}>
+        <div className="guest-book-popup-card" role="dialog" aria-modal="true" aria-label="Guest Book message" onClick={(event) => event.stopPropagation()}>
+          <span className="guest-book-popup-mark">✦</span>
+          <p className="guest-book-popup-message">{status}</p>
+          <button className="guest-book-popup-close" type="button" onClick={() => setStatus("")}>حسنًا · Okay</button>
+        </div>
+      </div>}
+    </div>
+  </section>;
+}
+
 export default function Home() {
   const [opening, setOpening] = useState(false); const [isOpen, setIsOpen] = useState(false); const [isPlaying, setIsPlaying] = useState(false); const [musicAvailable, setMusicAvailable] = useState(true); const musicRef = useRef<HTMLAudioElement>(null); const entranceVideoRef = useRef<HTMLVideoElement>(null); const openFallbackRef = useRef<number | null>(null);
+  useEffect(() => { const previousRestoration = window.history.scrollRestoration; window.history.scrollRestoration = "manual"; window.scrollTo(0, 0); const frame = window.requestAnimationFrame(() => window.scrollTo(0, 0)); return () => { window.cancelAnimationFrame(frame); window.history.scrollRestoration = previousRestoration; }; }, []);
   useEffect(() => { const finish = () => { if (openFallbackRef.current) window.clearTimeout(openFallbackRef.current); setIsOpen(true); }; window.addEventListener("invitation:opened", finish); if (!isOpen) return () => window.removeEventListener("invitation:opened", finish); document.body.classList.add("invitation-open"); const nodes = Array.from(document.querySelectorAll<HTMLElement>(".reveal")); const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add("is-visible"); observer.unobserve(entry.target); } }), { threshold: 0.13 }); nodes.forEach((node) => observer.observe(node)); return () => { document.body.classList.remove("invitation-open"); observer.disconnect(); window.removeEventListener("invitation:opened", finish); }; }, [isOpen]);
   const openInvitation = () => { if (opening) return; setOpening(true); const audio = musicRef.current; if (audio) audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false)); openFallbackRef.current = window.setTimeout(() => window.dispatchEvent(new CustomEvent("invitation:opened")), 6500); const video = entranceVideoRef.current; if (video) { video.currentTime = 0; video.play().catch(() => window.dispatchEvent(new CustomEvent("invitation:opened"))); } else window.dispatchEvent(new CustomEvent("invitation:opened")); };
   const toggleMusic = () => { const audio = musicRef.current; if (!audio || !musicAvailable) return; if (audio.paused) audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false)); else { audio.pause(); setIsPlaying(false); } };
@@ -82,6 +152,7 @@ export default function Home() {
       <section className="welcome section-shell" id="welcome"><div className="welcome-grid"><div className="welcome-stamp reveal"><span>MN</span><small>08 · 10 · 26</small></div><div className="welcome-copy"><Heading eyebrow="كلمة من القلب" title="نفتح لكم أبواب فرحتنا" english="Welcome into our forever" /><p className="body-ar reveal">بقلوبٍ يملؤها الفرح، ندعوكم لمشاركتنا ليلةً استثنائية، تكتمل أنوارها بحضوركم وتزدان بوجودكم بيننا.</p><p className="body-en reveal" dir="ltr">With hearts full of joy, we invite you to walk through the doors of our forever. Your presence will make this evening truly unforgettable.</p><div className="signature reveal"><span>بكل محبة،</span><strong>Moamen &amp; Nada</strong></div></div></div></section>
       <section className="countdown section-shell"><div className="countdown-header reveal"><p className="eyebrow">The countdown</p><h2>حتى تفتح أبواب ليلتنا</h2><p dir="ltr">Until we say “I do”</p></div><Countdown /></section>
       <section className="details section-shell" id="details"><Heading eyebrow="تفاصيل الاحتفال" title="تفاصيل ليلتنا" english="The royal details" /><div className="details-card reveal"><div className="detail-block"><CalendarDays size={22} /><span className="detail-label">التاريخ <small>Date</small></span><strong>{SITE_CONFIG.date.ar}</strong><small dir="ltr">{SITE_CONFIG.date.en}</small></div><div className="detail-divider" /><div className="detail-block"><Clock3 size={22} /><span className="detail-label">الوقت <small>Time</small></span><strong>من الثامنة مساءً حتى منتصف الليل</strong><small dir="ltr">8 PM — 12 AM</small></div><div className="detail-divider" /><div className="detail-block"><MapPin size={22} /><span className="detail-label">المكان <small>Venue</small></span><strong>{SITE_CONFIG.event.venueAr}</strong><small dir="ltr">{SITE_CONFIG.event.venueEn}</small><a href={SITE_CONFIG.event.mapsUrl} target="_blank" rel="noreferrer" className="outline-link">افتح الموقع <span dir="ltr">Open location</span></a></div></div><div className="calendar-actions reveal"><a href={googleCalendarUrl} target="_blank" rel="noreferrer" className="calendar-button"><CalendarPlus size={16} /> Google Calendar</a><a href={appleCalendarUrl()} download="moamen-nada-wedding.ics" className="calendar-button calendar-button--soft"><CalendarPlus size={16} /> Apple Calendar</a></div></section>
+      <GuestBook />
       <section className="closing section-shell"><div className="closing-line reveal"><span /><Heart size={15} fill="currentColor" /><span /></div><p className="eyebrow reveal">An evening to remember</p><h2 className="reveal">نلتقي عند أبواب الفرح</h2><p className="closing-en reveal" dir="ltr">We cannot wait to welcome you.</p><div className="closing-initials reveal">M <span>&amp;</span> N</div><p className="footer-note">Made with love · Moamen &amp; Nada · 2026</p></section>
     </main>
   </>;
