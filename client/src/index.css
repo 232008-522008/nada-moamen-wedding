@@ -50,6 +50,22 @@ button, a { font: inherit; } a { color: inherit; text-decoration: none; } button
 
 /* Ornate ivory sections */
 .section-shell { position: relative; overflow: hidden; padding: 100px 20px; }.section-shell::before { content: '✦'; position: absolute; top: 25px; left: 50%; color: var(--champagne); transform: translateX(-50%); font-size: 1.2rem; }.section-heading { position: relative; text-align: center; }.section-heading::after { content: '❦'; display: block; margin-top: 13px; color: var(--champagne); font-size: 1.1rem; }.section-heading h2 { direction: rtl; margin: 0; color: var(--velvet-deep); font: 700 clamp(2rem, 9vw, 3.8rem)/1.35 'Aref Ruqaa Ink', serif; letter-spacing: -.04em; }.heading-en { margin: 10px 0 0; color: var(--velvet); font: 400 clamp(1.2rem, 5vw, 1.8rem)/1 'Great Vibes', cursive; letter-spacing: .04em; }.verse { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 650px; background: var(--parchment); }.verse-ornament { display: flex; align-items: center; justify-content: space-between; width: min(100%, 360px); margin-bottom: 30px; color: var(--velvet); font: 500 .8rem 'Cormorant Garamond', serif; letter-spacing: .14em; }.floral-mark { display: flex; align-items: center; gap: 4px; color: var(--velvet); }.floral-mark span { width: 3px; height: 3px; border-radius: 50%; background: var(--champagne); }.verse-card { position: relative; width: min(100%, 680px); margin-top: 38px; padding: 34px 22px 27px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: center; }.verse-card::before, .verse-card::after { content: '◆'; position: absolute; top: -8px; color: var(--champagne); background: var(--parchment); font-size: .65rem; }.verse-card::before { left: 15%; }.verse-card::after { right: 15%; }.quote-mark { position: absolute; top: -4px; left: 50%; padding: 0 12px; color: var(--velvet); background: var(--parchment); transform: translate(-50%, -55%); font: 4rem/1 'Cormorant Garamond', serif; }
+/* صفحة 1 - البسملة */
+@font-face {
+  font-family: "p1-v2";
+  src: url("https://verses.quran.foundation/fonts/quran/hafs/v2/woff2/p1.woff2")
+    format("woff2");
+  font-display: block;
+}
+
+/* صفحة 406 - سورة الروم 30:21 */
+@font-face {
+  font-family: "p406-v2";
+  src: url("https://verses.quran.foundation/fonts/quran/hafs/v2/woff2/p406.woff2")
+    format("woff2");
+  font-display: block;
+}
+
 @font-face {
   font-family: "UthmanicHafs";
   src: url("https://verses.quran.foundation/fonts/quran/hafs/uthmanic_hafs/UthmanicHafs1Ver18.woff2")
@@ -57,14 +73,29 @@ button, a { font: inherit; } a { color: inherit; text-decoration: none; } button
   font-display: swap;
 }
 
-.verse-placeholder {
-  font-family: "UthmanicHafs", serif;
+.verse-bismillah {
+  font-family: "p1-v2" !important;
   direction: rtl;
   text-align: center;
   font-size: 32px;
   line-height: 2;
 }
 
+.verse-placeholder {
+  font-family: "p406-v2" !important;
+  direction: rtl;
+  text-align: center;
+  font-size: 32px;
+  line-height: 2;
+}
+
+.verse-note {
+  font-family: "UthmanicHafs" !important;
+  direction: rtl !important;
+  text-align: center !important;
+  font-size: 20px !important;
+  line-height: 2 !important;
+}
 .verse-note { direction: rtl; margin: 0; color: var(--muted); font: 1rem 'Aref Ruqaa Ink', serif; }
 .welcome { background: #fbf3e5; }.welcome-grid { display: grid; grid-template-columns: 1fr; gap: 50px; max-width: 1000px; margin: auto; align-items: center; }.welcome-stamp { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 170px; height: 170px; margin: 0 auto; color: var(--velvet); border: 1px solid var(--champagne); border-radius: 50%; }.welcome-stamp::before { content: ''; position: absolute; inset: 9px; border: 1px dashed var(--champagne); border-radius: 50%; }.welcome-stamp span { font: 400 3rem 'Great Vibes', cursive; }.welcome-stamp small { font: .58rem 'Cormorant Garamond', serif; letter-spacing: .16em; }.welcome-copy { max-width: 600px; margin: auto; }.welcome-copy .section-heading { text-align: right; }.welcome-copy .section-heading::after { text-align: right; }.body-ar { direction: rtl; margin: 31px 0 12px; color: var(--muted); text-align: right; font: 400 1.26rem/2.1 'Aref Ruqaa Ink', serif; }.body-en { margin: 0; color: var(--muted); text-align: left; font: 1.18rem/1.6 'Cormorant Garamond', serif; }.signature { display: flex; flex-direction: column; gap: 3px; margin-top: 29px; color: var(--velvet); text-align: left; }.signature span { font: 1.1rem 'Aref Ruqaa Ink', serif; }.signature strong { font: 1.8rem 'Great Vibes', cursive; }
 .countdown { background: var(--velvet-deep); color: var(--ivory); text-align: center; }.countdown::before { color: var(--champagne); }.countdown-header h2 { direction: rtl; margin: 0; color: var(--ivory); font: 700 clamp(2rem, 9vw, 3.7rem)/1.3 'Aref Ruqaa Ink', serif; }.countdown-header > p:last-child { margin: 12px 0 0; color: var(--champagne-light); font: 1.35rem 'Great Vibes', cursive; }.countdown-header .eyebrow { color: var(--champagne); }.countdown-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 720px; margin: 42px auto 0; }.countdown-item { min-height: 125px; display: flex; flex-direction: column; justify-content: center; gap: 7px; padding: 16px 8px; background: rgba(255,255,255,.055); border: 1px solid rgba(216,180,118,.42); }.countdown-number { color: var(--champagne-light); font: 500 clamp(2.4rem, 12vw, 4.5rem)/.8 'Cormorant Garamond', serif; }.countdown-label { display: flex; flex-direction: column; direction: rtl; color: var(--ivory); font: 1rem 'Aref Ruqaa Ink', serif; }.countdown-label small { direction: ltr; color: rgba(240,217,167,.62); font: .7rem 'Great Vibes', cursive; }
@@ -193,7 +224,7 @@ body { font-family:'Noto Naskh Arabic', serif; }
 .hero-content { background:rgba(255,253,248,.89) !important; border-color:rgba(185,151,95,.75) !important; box-shadow:0 24px 72px rgba(49,53,44,.2),inset 0 0 0 6px rgba(185,151,95,.1) !important; }.hero-content .eyebrow { color:var(--velvet) !important; }.hero-names, .hero-names span { color:var(--velvet-deep) !important; font-family:'Amiri',serif !important; font-weight:700 !important; letter-spacing:-.04em !important; }.hero-names i { color:var(--champagne) !important; }.hero-names-en { color:var(--velvet) !important; }.hero-date { color:var(--muted) !important; }.hero-date i { background:var(--champagne) !important; }.hero-caption { background:rgba(74,81,71,.54) !important; border-color:rgba(233,215,176,.64) !important; }.hero-caption span:first-child { color:#fffdf8 !important; font-family:'Amiri',serif !important; }.hero-caption span:nth-child(2) { color:#f2dfba !important; }
 .royal-ornament { display:block; color:var(--champagne); pointer-events:none; }.gate-ornament { position:absolute; z-index:10; width:min(82vw,390px); opacity:.9; }.gate-ornament--top { top:10%; left:50%; transform:translateX(-50%); }.gate-ornament--bottom { bottom:10%; left:50%; transform:translateX(-50%) rotate(180deg); opacity:.68; }.hero-ornament { position:absolute; z-index:6; top:30px; left:50%; width:min(62vw,340px); transform:translateX(-50%); color:#ead8b1; opacity:.86; }.section-royal-ornament { width:min(84vw,410px); margin:0 auto 10px; color:var(--champagne); opacity:.78; }
 .gate { background:var(--parchment) !important; color:var(--velvet-deep) !important; }.gate::before { background:radial-gradient(circle at 50% 50%,rgba(233,215,176,.25),transparent 33%),linear-gradient(135deg,#faf7f1,#eee5da) !important; }.gate::after { opacity:.06 !important; }.enter-hint { color:var(--ivory) !important; background:var(--velvet-deep) !important; border:1px solid var(--champagne) !important; box-shadow:0 10px 28px rgba(74,81,71,.2),inset 0 0 0 3px rgba(233,215,176,.12) !important; padding:10px 16px !important; border-radius:999px !important; }.enter-hint strong, .enter-hint small { color:#fffdf8 !important; font-family:'Amiri',serif !important; }.enter-hint small { font-family:'Cormorant Garamond',serif !important; opacity:.82 !important; }.enter-hint__ring { border-color:var(--champagne) !important; box-shadow:0 0 0 6px rgba(185,151,95,.15) !important; color:#f2dfba !important; }.gate-footer { color:var(--velvet) !important; }
-.section-heading h2, .countdown-header h2, .closing h2 { font-family:'Amiri',serif !important; font-weight:700 !important; color:var(--velvet-deep) !important; }.heading-en { color:var(--velvet) !important; }.verse-placeholder, .verse-note, .body-ar, .detail-label, .countdown-label, .signature span { font-family:'Noto Naskh Arabic',serif !important; }.verse-placeholder { color:var(--velvet-deep) !important; font-weight:700 !important; }.body-ar { color:var(--muted) !important; }.welcome { background:#f3ece3 !important; }.welcome-stamp { color:var(--velvet-deep) !important; border-color:var(--champagne) !important; }.signature strong { color:var(--champagne) !important; }.countdown { background:var(--velvet-deep) !important; }.details, .verse { background:var(--parchment) !important; }.details-card, .verse-card { background:rgba(255,253,248,.55) !important; border-color:var(--line) !important; }.detail-block, .detail-label, .detail-block strong { color:var(--velvet-deep) !important; }.outline-link { color:var(--velvet-deep) !important; border-color:var(--champagne) !important; }.calendar-button { background:var(--velvet-deep) !important; border-color:var(--champagne-light) !important; }.calendar-button--soft { color:var(--velvet-deep) !important; background:transparent !important; }.closing { background:linear-gradient(145deg,#697667,#4a5147) !important; }.closing h2 { color:#fffdf8 !important; }.closing .eyebrow,.closing-line,.closing-en,.closing-initials { color:#ead8b0 !important; }.music-toggle { color:var(--velvet-deep) !important; background:rgba(255,253,248,.94) !important; border-color:var(--champagne) !important; }
+.section-heading h2, .countdown-header h2, .closing h2 { font-family:'Amiri',serif !important; font-weight:700 !important; color:var(--velvet-deep) !important; }.heading-en { color:var(--velvet) !important; }.body-ar, .detail-label, .countdown-label, .signature span { font-family:'Noto Naskh Arabic',serif !important; }.verse-placeholder { color:var(--velvet-deep) !important; font-weight:700 !important; }.body-ar { color:var(--muted) !important; }.welcome { background:#f3ece3 !important; }.welcome-stamp { color:var(--velvet-deep) !important; border-color:var(--champagne) !important; }.signature strong { color:var(--champagne) !important; }.countdown { background:var(--velvet-deep) !important; }.details, .verse { background:var(--parchment) !important; }.details-card, .verse-card { background:rgba(255,253,248,.55) !important; border-color:var(--line) !important; }.detail-block, .detail-label, .detail-block strong { color:var(--velvet-deep) !important; }.outline-link { color:var(--velvet-deep) !important; border-color:var(--champagne) !important; }.calendar-button { background:var(--velvet-deep) !important; border-color:var(--champagne-light) !important; }.calendar-button--soft { color:var(--velvet-deep) !important; background:transparent !important; }.closing { background:linear-gradient(145deg,#697667,#4a5147) !important; }.closing h2 { color:#fffdf8 !important; }.closing .eyebrow,.closing-line,.closing-en,.closing-initials { color:#ead8b0 !important; }.music-toggle { color:var(--velvet-deep) !important; background:rgba(255,253,248,.94) !important; border-color:var(--champagne) !important; }
 .flower--rose b { background:var(--crimson) !important; }
 
 /* Final precision pass: names-only Symphonie, non-overlapping ornaments, calmer copy density. */
