@@ -5,7 +5,7 @@ const SITE_CONFIG = {
   names: { ar: "مؤمن وندى", en: "Moamen & Nada" },
   date: { ar: "٨ أكتوبر ٢٠٢٦", en: "8 October 2026", isoStart: "2026-10-08T20:00:00+03:00", isoEnd: "2026-10-09T00:00:00+03:00" },
   event: { venueAr: "قاعة روزي بالمركز الثقافي ببورسعيد", venueEn: "Rozy Hall · Port Said Cultural Center", mapsUrl: "https://maps.app.goo.gl/bHp7N72Audr5bQsY9" },
-  media: { entranceVideo: "/public/media/royal-entrance-muted-faststart.mp4", entranceImage: "/public/media/royal-entrance-poster.png", video: "/public/media/wedding-scene-faststart.mp4", poster: "/public/media/opening-poster.jpg", music: "/public/media/wedding-music.mp3" },
+  media: { entranceVideo: "/media/royal-entrance-muted-faststart.mp4", entranceImage: "/media/royal-entrance-poster.png", video: "/media/wedding-scene-faststart.mp4", poster: "/media/opening-poster.jpg", music: "/media/wedding-music.mp3" },
 };
 
 const pad = (value: number) => String(value).padStart(2, "0");

@@ -181,7 +181,7 @@ body { font-family:'Noto Naskh Arabic', serif; }
 .flower--rose b { background:var(--crimson) !important; }
 
 /* Final precision pass: names-only Symphonie, non-overlapping ornaments, calmer copy density. */
-@font-face { font-family:'Symphonie'; src:url('/public/media/SymphonieCalligraphyDEMO-Regular.otf') format('opentype'); font-display:swap; }
+@font-face { font-family:'Symphonie'; src:url('/media/SymphonieCalligraphyDEMO-Regular.otf') format('opentype'); font-display:swap; }
 .hero-names, .hero-names span, .hero-names-en, .welcome-stamp span, .signature strong, .closing-initials { font-family:'Symphonie','Amiri',serif !important; font-weight:400 !important; }
 .hero-names { letter-spacing:.01em !important; }.hero-names i { font-family:'Cormorant Garamond',serif !important; font-weight:400 !important; }.hero-names-en { letter-spacing:.03em !important; }
 /* Keep the gold decoration physically below the button, never under its text box. */
