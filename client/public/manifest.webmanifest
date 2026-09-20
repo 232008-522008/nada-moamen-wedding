@@ -1,0 +1,26 @@
+{
+  "name": "Moamen & Nada · Wedding Invitation",
+  "short_name": "Moamen & Nada",
+  "description": "دعوة زفاف مؤمن وندى · ٨ أكتوبر ٢٠٢٦",
+  "lang": "ar",
+  "dir": "rtl",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "theme_color": "#f7f3eb",
+  "background_color": "#f7f3eb",
+  "icons": [
+    {
+      "src": "/media/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/media/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
