@@ -692,3 +692,7 @@ body { font-family:'Noto Naskh Arabic', serif; }
 .scroll-guide { bottom: 82px; color: #3f5045; background: rgba(243,236,227,.97); border: 1px solid #b9975f; box-shadow: 0 12px 32px rgba(52,66,56,.22), inset 0 0 0 3px rgba(185,151,95,.1); }
 .scroll-guide span { color: #3f5045; text-shadow: none; }
 .scroll-guide small, .scroll-guide svg { color: #8b6a35; }
+
+.closing-heart { display:inline-block; color:#ead8b0; font-family:'Cormorant Garamond', serif; font-size:1.35rem; line-height:1; transform:translateY(1px); }
+
+.closing h2 .closing-heart { font: inherit !important; color: inherit !important; letter-spacing: inherit !important; transform: none !important; }
